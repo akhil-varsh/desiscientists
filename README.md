@@ -98,5 +98,5 @@ This project is licensed under the MIT License. See `LICENSE` for details.
 
 ---
 
-**Made with ❤️ by Desi Scientists Team**
+**Made with ❤️ by Akhil**
 

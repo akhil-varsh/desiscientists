@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from "@vercel/analytics/react";
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Pixels from './pages/Pixels';
@@ -12,6 +13,7 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 cursor-[url('/cursor.png'),_auto]">
+      <Analytics />
       <Navbar />
         <main className="pt-16">
           <div className="container mx-auto px-4 py-8">

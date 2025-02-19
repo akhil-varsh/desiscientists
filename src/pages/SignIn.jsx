@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabase';
 import { Link } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons for showing and hiding password
 
 export default function SignIn() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // State for showing password
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -67,13 +69,26 @@ export default function SignIn() {
               <label className="block text-sm font-medium text-purple-200">
                 Password
               </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full rounded-md bg-gray-900 border-purple-500 text-white focus:border-purple-400 focus:ring focus:ring-purple-300 focus:ring-opacity-50"
-                required
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'} // Toggle password visibility
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-1 block w-full rounded-md bg-gray-900 border-purple-500 text-white focus:border-purple-400 focus:ring focus:ring-purple-300 focus:ring-opacity-50"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)} // Toggle showPassword state
+                  className="absolute right-3 top-3 text-purple-400 hover:text-purple-300 focus:outline-none"
+                >
+                  {showPassword ? (
+                    <FaEyeSlash size={20} /> // Eye Slash for hiding password
+                  ) : (
+                    <FaEye size={20} /> // Eye icon for showing password
+                  )}
+                </button>
+              </div>
             </div>
             <motion.button
               whileHover={{ scale: 1.02 }}

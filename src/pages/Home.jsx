@@ -2,10 +2,12 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { FaFlask, FaDna, FaMicroscope, FaRobot } from 'react-icons/fa';
+import { Link } from 'react-router-dom';  // Import Link from react-router-dom
 
 function Home() {
   const [session, setSession] = useState(null);
 
+  // Fetch the session and set up subscription to auth state changes
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -40,7 +42,7 @@ function Home() {
             animate={{ y: 0 }}
             className="text-2xl md:text-3xl text-purple-200 mb-12"
           >
-           
+            {/* Add any additional content for the paragraph here */}
           </motion.p>
         </div>
 
@@ -51,45 +53,48 @@ function Home() {
                 title: 'Pixels',
                 description: 'Explore our research gallery',
                 icon: FaMicroscope,
-                href: '/pixels',
+                href: '/pixels', // Use the correct route here
                 color: 'from-purple-600 to-pink-600',
               },
               {
                 title: 'Bored?',
                 description: 'Watch scientific documentaries',
                 icon: FaRobot,
-                href: '/bored',
+                href: '/bored', // Use the correct route here
                 color: 'from-blue-600 to-purple-600',
               },
               {
                 title: 'Research',
                 description: 'Access research papers',
                 icon: FaDna,
-                href: '/assignments',
+                href: '/assignments', // Use the correct route here
                 color: 'from-indigo-600 to-blue-600',
               },
               {
                 title: 'Lab Access',
                 description: 'Request lab permissions',
                 icon: FaFlask,
-                href: '/permissions',
+                href: '/permissions', // Use the correct route here
                 color: 'from-pink-600 to-purple-600',
               },
             ].map((item) => (
-              <motion.a
+              <motion.div
                 key={item.title}
-                href={item.href}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="group relative overflow-hidden rounded-xl bg-gray-900 p-8 shadow-xl"
               >
-                <div className={`absolute inset-0 bg-gradient-to-r ${item.color} opacity-50 transition-opacity group-hover:opacity-70`} />
-                <div className="relative">
-                  <item.icon className="h-12 w-12 text-white mb-4" />
-                  <h2 className="text-2xl font-bold text-white mb-2">{item.title}</h2>
-                  <p className="text-purple-200">{item.description}</p>
-                </div>
-              </motion.a>
+                <Link to={item.href}> {/* Use Link instead of a normal anchor */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r ${item.color} opacity-50 transition-opacity group-hover:opacity-70`}
+                  />
+                  <div className="relative">
+                    <item.icon className="h-12 w-12 text-white mb-4" />
+                    <h2 className="text-2xl font-bold text-white mb-2">{item.title}</h2>
+                    <p className="text-purple-200">{item.description}</p>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
           </div>
         )}
